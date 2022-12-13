@@ -12,7 +12,8 @@ namespace csharp_gestore_eventi
         DateTime data = new DateTime();
         private int capMax;
         private int nPrenotazioni;
-
+        int postiPrenotati = 0;
+        int postiDisdetti = 0;
 
         public Evento(string titolo, DateTime data, int capMax, int nPrenotazioni)
         {
@@ -55,7 +56,6 @@ namespace csharp_gestore_eventi
 
         public void PrenotaPosti()
         {
-            int postiPrenotati = 0;
 
             while (data < DateTime.Now)
             {
@@ -79,24 +79,27 @@ namespace csharp_gestore_eventi
 
         public void DisdiciPosti()
         {
+           
+
             while (data < DateTime.Now)
             {
                 throw new Exception("L'evento è già finito");
             }
 
-            if (nPrenotazioni > capMax)
+            if (postiDisdetti > postiPrenotati)
             {
-                throw new Exception("Stai superando la capienza massima");
-            }
-            else if (nPrenotazioni < 0)
-            {
-                throw new Exception("Hai inserito un valore non valido");
+                throw new Exception("hai disdetto più posti di quelli prenotati");
             }
             else
             {
-                nPrenotazioni++;
+                postiPrenotati = nPrenotazioni - postiDisdetti;
             }
 
+        }
+
+        public override string ToString()
+        {
+            return this.data + this.titolo;
         }
     }
 }
