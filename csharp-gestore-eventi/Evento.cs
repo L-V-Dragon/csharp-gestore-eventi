@@ -9,16 +9,16 @@ namespace csharp_gestore_eventi
     public class Evento
     {
         private string titolo;
-        DateTime data = new DateTime();
+        DateTime data;
         private int capMax;
         private int nPrenotazioni;
-        int postiPrenotati = 0;
-        int postiDisdetti = 0;
+        
+        
 
-        public Evento(string titolo, DateTime data, int capMax, int nPrenotazioni)
+        public Evento(string titolo, string data, int capMax)
         {
-            this.titolo = titolo;
-            this.data = data;
+            SetTitolo(titolo);
+            SetData(data);
             this.capMax = capMax;
             this.nPrenotazioni = 0;
         }
@@ -48,16 +48,16 @@ namespace csharp_gestore_eventi
             titolo = this.titolo;
         }
 
-        public void SetData(DateTime data)
+        public void SetData(string data)
         {
-            data = this.data;
+            this.data = DateTime.Parse(data);
         }
 
 
-        public void PrenotaPosti()
+        public void PrenotaPosti(int postiPrenotati)
         {
 
-            while (data < DateTime.Now)
+            if (data < DateTime.Today)
             {
                 throw new Exception("L'evento è già finito");
             }
@@ -72,34 +72,34 @@ namespace csharp_gestore_eventi
             }
             else
             {
-               postiPrenotati = nPrenotazioni;
+               nPrenotazioni += postiPrenotati;
             }
         }
 
 
-        public void DisdiciPosti()
+        public void DisdiciPosti(int postiDisdetti)
         {
            
 
-            while (data < DateTime.Now)
+            if (data < DateTime.Today)
             {
                 throw new Exception("L'evento è già finito");
             }
 
-            if (postiDisdetti > postiPrenotati)
+            if ( nPrenotazioni - postiDisdetti < 0)
             {
                 throw new Exception("hai disdetto più posti di quelli prenotati");
             }
             else
             {
-                postiPrenotati = nPrenotazioni - postiDisdetti;
+                nPrenotazioni -= postiDisdetti;
             }
 
         }
 
         public override string ToString()
         {
-            return this.data + this.titolo;
+            return this.GetData().ToString("dd/MM/yyyy") + this.GetTitolo();
         }
     }
 }
