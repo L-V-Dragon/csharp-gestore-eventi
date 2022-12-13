@@ -45,7 +45,7 @@ namespace csharp_gestore_eventi
 
         public void SetTitolo(string titolo)
         {
-            titolo = this.titolo;
+            this.titolo = titolo;
         }
 
         public void SetData(string data)
@@ -99,7 +99,7 @@ namespace csharp_gestore_eventi
 
         public override string ToString()
         {
-            return this.GetData().ToString("dd/MM/yyyy") + this.GetTitolo();
+            return this.GetData().ToString("dd/MM/yyyy") + " - " + this.GetTitolo();
         }
     }
 }

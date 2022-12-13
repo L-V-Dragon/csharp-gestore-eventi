@@ -36,9 +36,9 @@ namespace csharp_gestore_eventi
         public List<Evento> eventoXData(string data)
         {
             List<Evento> eventiXData = new List<Evento>(); 
-            foreach (Evento evento in eventi)
+            foreach (Evento evento in this.eventi)
             {
-                if (evento.GetData().ToString() == data)
+                if (evento.GetData().ToString("dd/MM/yyyy") == data)
                 {
                     eventiXData.Add(evento);
                 }
@@ -48,10 +48,11 @@ namespace csharp_gestore_eventi
 
         public static string stampaLista(List<Evento> eventi)
         {
-            string stringaLista = "";
+            string stringaLista = "\n";
             foreach (Evento evento in eventi)
             {
                 stringaLista += evento.ToString();
+                stringaLista += "\n";
             }
             return stringaLista;
         }
@@ -68,7 +69,7 @@ namespace csharp_gestore_eventi
 
         public override string ToString()
         {
-            string programma = this.GetTitolo();
+            string programma = this.GetTitolo() + "\n";
             programma += ProgrammaEventi.stampaLista(this.eventi);
             return programma;
         }
