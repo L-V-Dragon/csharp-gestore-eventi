@@ -2,8 +2,6 @@
 
 try
 {
-    
-
     Console.WriteLine("Creiamo un evento");
     Console.WriteLine();
 
