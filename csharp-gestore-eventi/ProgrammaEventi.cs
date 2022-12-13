@@ -48,7 +48,12 @@ namespace csharp_gestore_eventi
 
         public static string stampaLista(List<Evento> eventi)
         {
-            return eventi.ToString();
+            string stringaLista = "";
+            foreach (Evento evento in eventi)
+            {
+                stringaLista += evento.ToString();
+            }
+            return stringaLista;
         }
 
         public int contaEventi()
